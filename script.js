@@ -1,6 +1,4 @@
 'use strict';
-
-
 //Selecting score elements + dice element with queryySelector and getElementById
 const score0Dom = document.querySelector('#score--0');
 const score1Dom = document.getElementById('score--1');
@@ -12,7 +10,12 @@ const ply0 = document.querySelector('.player--0');
 const ply1 = document.querySelector('.player--1');
 const active = document.querySelector('.player--active');
 
+//Creating 2 variables to hold the current score number
+let currentScore0 = document.getElementById('current--0');
+let currentScore1 = document.getElementById('current--1');
 
+
+let currentScore = 0;
 //Initial values of the starting game
 score0Dom.textContent = 0;
 score1Dom.textContent = 0;
@@ -27,7 +30,7 @@ diceImg.classList.add('hidden');
 const handleRoll = () => { 
     //First we have to generate a random dice roll using Math.random and Math.trunc to round the number
     const ranNum = Math.trunc(Math.random() * 6) + 1;
-    console.log(ranNum);
+    // console.log(ranNum);
     diceImg.classList.remove('hidden');
     //Then display the dice
     //The trick to changing the photo of the dice is to use the src property when manipulating diceImg
@@ -36,15 +39,35 @@ const handleRoll = () => {
     diceImg.src = `dice-${ranNum}.png`;
     
     //If random number is 1 then switch to the next player 
-    if(ranNum == 1 && ply0.classList.contains('player--active')){
-        ply0.classList.remove('player--active');
-        ply1.classList.add('player--active')
-    }
+        if(ranNum != 1){
+            // ply0.classList.remove('player--active');
+            // ply1.classList.add('player--active');
+            if(ply0.classList.contains('player--active')){
+                currentScore += ranNum;
+                //Testing current score to add and equal ranNum
+                console.log(currentScore)
+                currentScore0.textContent = currentScore;
+            }else if(ply1.classList.contains('player--active')){
+                currentScore += ranNum;
+                currentScore1.textContent = currentScore
+            }
+                
+            
+        }
     //Have to add the else if as the logic is if its a 1 roll and the cdd class contains player--active
-    else if(ranNum == 1 && ply1.classList.contains('player--active')){
-        ply1.classList.remove('player--active');
-        ply0.classList.add('player--active')
-    }
+        else if(ranNum == 1){
+            currentScore = 0
+            if(ply0.classList.contains('player--active')){
+                ply0.classList.remove('player--active');
+                ply1.classList.add('player--active');
+                currentScore0.textContent = currentScore
+            }else{
+                ply1.classList.remove('player--active');
+                ply0.classList.add('player--active');
+                currentScore1.textContent = currentScore
+            }
+        }   
+
 }
 
 
