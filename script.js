@@ -10,12 +10,19 @@ const ply0 = document.querySelector('.player--0');
 const ply1 = document.querySelector('.player--1');
 const active = document.querySelector('.player--active');
 
+
 //Creating 2 variables to hold the current score number
 let currentScore0 = document.getElementById('current--0');
 let currentScore1 = document.getElementById('current--1');
 
 
+
+let holdScore0 = 0
+let holdScore1 = 0
 let currentScore = 0;
+let plyScore0 = 0;
+let plyScore1 = 0;
+
 //Initial values of the starting game
 score0Dom.textContent = 0;
 score1Dom.textContent = 0;
@@ -70,12 +77,44 @@ const handleRoll = () => {
 
 }
 
-
+//within this event handler function we want to move the current input into the players poitns 
+// dont have to worry about if it rolls a 1 as that event is handled in the roll dice btn 
+// we also want to switch the players if they chose to hold the number 
+// also if they hold and their number is 100 or above we call winner css styling
+const handleHold = () =>{
+    if(ply0.classList.contains('player--active')){
+        holdScore0 += currentScore
+        score0Dom.textContent =  holdScore0;
+        ply0.classList.remove('player--active');
+        ply1.classList.add('player--active');
+        currentScore = 0;
+        currentScore0.textContent = 0
+            if(holdScore0 >= 100){
+                ply0.classList.add('player--winner');
+                ply0.classList.add('player--winner .name');
+            }
+    }
+    else if(ply1.classList.contains('player--active')){
+        holdScore1 += currentScore
+        score1Dom.textContent = holdScore1;
+        ply1.classList.remove('player--active');
+        ply0.classList.add('player--active');
+        currentScore = 0;
+        currentScore1.textContent = 0;
+            if(holdScore1 >= 100){
+                ply1.classList.add('player--winner');
+                ply1.classList.add('player--winner .name');
+            }
+    }
+}
 //When thinking about event handlers its when an action happens like a click or even a key press
 
 //Rolling the dice logic
 //Event listening with the action 'click' and the function attached is defined outside 
 BtnRoll.addEventListener('click', handleRoll)
+
+//Hold button event listener 
+BtnHold.addEventListener('click', handleHold)
 
 
 
