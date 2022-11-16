@@ -107,6 +107,35 @@ const handleHold = () =>{
             }
     }
 }
+
+const handleReset = () =>{ 
+    //All value and text content resets
+    currentScore0.textContent = 0;
+    currentScore1.textContent = 0;
+    currentScore = 0;
+    holdScore0 = 0;
+    holdScore1 = 0;
+    score0Dom.textContent = 0
+    score1Dom.textContent = 0
+
+    //resetting the player to player 1 as it should start with player 1 all the time
+    if(ply1.classList.contains('player--active') && ply1.classList.contains('player--winner')){
+        ply1.classList.remove('player--active');
+        ply0.classList.add('player--active');
+        ply1.classList.remove('player--winner');
+        ply1.classList.remove('player--winner .name');
+    }
+    else if(ply0.classList.contains('player--winner')){
+        ply0.classList.remove('player--winner');
+        ply0.classList.remove('player--winner .name');
+    }
+        
+    
+}
+
+
+
+
 //When thinking about event handlers its when an action happens like a click or even a key press
 
 //Rolling the dice logic
@@ -116,6 +145,8 @@ BtnRoll.addEventListener('click', handleRoll)
 //Hold button event listener 
 BtnHold.addEventListener('click', handleHold)
 
+//Reset button event listener
+BtnNew.addEventListener('click', handleReset)
 
 
 
