@@ -119,7 +119,7 @@ const handleReset = () =>{
     score1Dom.textContent = 0
 
     //resetting the player to player 1 as it should start with player 1 all the time
-    if(ply1.classList.contains('player--active') && ply1.classList.contains('player--winner')){
+    if(ply1.classList.contains('player--winner')){
         ply1.classList.remove('player--active');
         ply0.classList.add('player--active');
         ply1.classList.remove('player--winner');
